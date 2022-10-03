@@ -1,13 +1,13 @@
-package ge.bkapa.discsovery.assigment;
+package ge.bkapa.discovery.assigment;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DiscsoveryAssigmentApplication {
+public class DiscoveryAssigmentApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DiscsoveryAssigmentApplication.class, args);
+        SpringApplication.run(DiscoveryAssigmentApplication.class, args);
     }
 
 }
