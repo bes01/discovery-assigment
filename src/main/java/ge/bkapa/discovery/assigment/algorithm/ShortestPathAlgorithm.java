@@ -1,12 +1,13 @@
 package ge.bkapa.discovery.assigment.algorithm;
 
-import ge.bkapa.discovery.assigment.algorithm.model.Node;
+import ge.bkapa.discovery.assigment.algorithm.model.Edge;
+import ge.bkapa.discovery.assigment.algorithm.model.Path;
 
-import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 
 public interface ShortestPathAlgorithm {
 
-    BigDecimal computeShortestPath(String from, String to, Map<String, Node> adjacencyMap);
+    Path computeShortestPath(String from, String to, Map<String, List<Edge>> adjacencyMap);
 
 }

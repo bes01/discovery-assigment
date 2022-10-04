@@ -1,10 +1,10 @@
 package ge.bkapa.discovery.assigment.algorithm.model.impl;
 
-import ge.bkapa.discovery.assigment.algorithm.model.Node;
+import ge.bkapa.discovery.assigment.algorithm.model.Edge;
 
 import java.math.BigDecimal;
 
-public class LightYearsDistanceNode implements Node {
+public class BFSEdge implements Edge {
 
     private final String from;
 
@@ -12,7 +12,10 @@ public class LightYearsDistanceNode implements Node {
 
     private final BigDecimal distance;
 
-    public LightYearsDistanceNode(String from, String to, BigDecimal distance) {
+    public BFSEdge(String from, String to, BigDecimal distance) {
+        assert !from.equals(to);
+        assert distance.compareTo(BigDecimal.ZERO) > 0;
+
         this.from = from;
         this.to = to;
         this.distance = distance;

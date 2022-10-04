@@ -2,11 +2,11 @@ package ge.bkapa.discovery.assigment.algorithm.model;
 
 import java.math.BigDecimal;
 
-public interface Node {
+public interface Edge {
 
-    public String getFrom();
+    String getFrom();
 
-    public String getTo();
+    String getTo();
 
     default BigDecimal getDistance() {
         return BigDecimal.ONE;
