@@ -9,7 +9,7 @@ import java.util.List;
 
 public class BFSPath implements Path {
 
-    private List<Edge> edges;
+    private final List<Edge> edges;
 
     private BigDecimal length;
 
@@ -44,6 +44,6 @@ public class BFSPath implements Path {
 
     @Override
     public int compareTo(Path o) {
-        return length.subtract(o.getLength()).intValue();
+        return length.compareTo(o.getLength());
     }
 }
