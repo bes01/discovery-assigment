@@ -55,7 +55,7 @@ public class RunOnStartup {
     private Map<String, Planet> persistPlanets(Sheet planetsSheet) {
         List<Planet> planets = new ArrayList<>();
         for (Row row : planetsSheet) {
-            if(row.getRowNum() == 0) continue;
+            if (row.getRowNum() == 0) continue;
             int cnt = 0;
             Planet planet = new Planet();
             for (Cell cell : row) {
@@ -74,20 +74,22 @@ public class RunOnStartup {
 
     private void persistRoutes(Sheet routeSheet, Map<String, Planet> planets) {
         for (Row row : routeSheet) {
-            if(row.getRowNum() == 0) continue;
+            if (row.getRowNum() == 0) continue;
             int cnt = 0;
             Route route = new Route();
             for (Cell cell : row) {
-                if(cnt == 1){
+                if (cnt == 1) {
                     route.setFrom(planets.get(cell.getStringCellValue()));
                 } else if (cnt == 2) {
                     route.setTo(planets.get(cell.getStringCellValue()));
-                } else if (cnt == 3){
+                } else if (cnt == 3) {
                     route.setDistance(BigDecimal.valueOf(cell.getNumericCellValue()));
                 }
                 cnt++;
             }
-            em.persist(route);
+            if (route.getFrom() != null && route.getTo() != null) { // L' planet was listed in routes' sheet but not in planets' sheet
+                em.persist(route);
+            }
         }
     }
 }
