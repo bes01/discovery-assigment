@@ -10,12 +10,12 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -32,22 +32,23 @@ public class RunOnStartup {
     @Value("${populate.db}")
     private boolean populateDatabase;
 
-    private final static String DB_DATA_FILE_PATH = "src/main/resources/static/data.xlsx";
+    private final static String DB_DATA_FILE_NAME = "data.xlsx";
 
     @EventListener(ApplicationReadyEvent.class)
     @Transactional
     public void populateDatabaseIfFlagIsTrue() {
         if (populateDatabase) {
             try {
-                readDataAndPopulateDatabase(DB_DATA_FILE_PATH);
+                readDataAndPopulateDatabase(DB_DATA_FILE_NAME);
             } catch (IOException ex) {
                 System.out.println("ERROR - Couldn't load data, some data might be absent!");
             }
         }
     }
 
-    private void readDataAndPopulateDatabase(String dbDataFilePath) throws IOException {
-        Workbook workbook = new XSSFWorkbook(new FileInputStream(dbDataFilePath));
+    private void readDataAndPopulateDatabase(String fileName) throws IOException {
+        ClassPathResource cpr = new ClassPathResource(fileName);
+        Workbook workbook = new XSSFWorkbook(cpr.getInputStream());
         Map<String, Planet> planets = persistPlanets(workbook.getSheetAt(0));
         persistRoutes(workbook.getSheetAt(1), planets);
     }
