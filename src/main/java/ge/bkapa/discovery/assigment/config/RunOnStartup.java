@@ -39,15 +39,15 @@ public class RunOnStartup {
     public void populateDatabaseIfFlagIsTrue() {
         if (populateDatabase) {
             try {
-                readDataAndPopulateDatabase(DB_DATA_FILE_NAME);
+                readDataAndPopulateDatabase();
             } catch (IOException ex) {
                 System.out.println("ERROR - Couldn't load data, some data might be absent!");
             }
         }
     }
 
-    private void readDataAndPopulateDatabase(String fileName) throws IOException {
-        ClassPathResource cpr = new ClassPathResource(fileName);
+    private void readDataAndPopulateDatabase() throws IOException {
+        ClassPathResource cpr = new ClassPathResource(RunOnStartup.DB_DATA_FILE_NAME);
         Workbook workbook = new XSSFWorkbook(cpr.getInputStream());
         Map<String, Planet> planets = persistPlanets(workbook.getSheetAt(0));
         persistRoutes(workbook.getSheetAt(1), planets);
