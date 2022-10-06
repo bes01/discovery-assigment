@@ -2,13 +2,7 @@ package ge.bkapa.discovery.assigment.boundary;
 
 import ge.bkapa.discovery.assigment.model.dto.PlanetDTO;
 import ge.bkapa.discovery.assigment.service.PlanetService;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -34,12 +28,12 @@ public class PlanetResource {
     }
 
     @PostMapping
-    public String persistPlanet(@Valid PlanetDTO planetDTO) {
+    public String persistPlanet(@Valid @RequestBody PlanetDTO planetDTO) {
         return service.persistPlanet(planetDTO);
     }
 
     @PutMapping("{id}")
-    public void updatePlanet(@PathVariable String id, @Valid PlanetDTO planetDTO) {
+    public void updatePlanet(@PathVariable String id, @Valid @RequestBody PlanetDTO planetDTO) {
         service.updatePlanet(id, planetDTO);
     }
 

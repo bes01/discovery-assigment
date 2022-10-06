@@ -3,6 +3,7 @@ package ge.bkapa.discovery.assigment.service;
 import ge.bkapa.discovery.assigment.model.dto.PlanetDTO;
 import ge.bkapa.discovery.assigment.model.entity.Planet;
 import ge.bkapa.discovery.assigment.model.repository.PlanetRepository;
+import ge.bkapa.discovery.assigment.model.repository.RouteRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,8 +17,11 @@ public class PlanetService {
 
     private final PlanetRepository repository;
 
-    public PlanetService(PlanetRepository repository) {
+    private final RouteRepository routeRepository;
+
+    public PlanetService(PlanetRepository repository, RouteRepository routeRepository) {
         this.repository = repository;
+        this.routeRepository = routeRepository;
     }
 
     public List<PlanetDTO> getPlanets() {
@@ -34,6 +38,7 @@ public class PlanetService {
 
     public String persistPlanet(PlanetDTO planetDTO) {
         Planet planet = new Planet();
+        planet.setId(planetDTO.id());
         planet.setName(planetDTO.name());
         return repository.save(planet).getId();
     }
@@ -47,6 +52,7 @@ public class PlanetService {
     }
 
     public void deletePlanet(String id) {
+        routeRepository.deleteByPlanetId(id);
         repository.deleteById(id);
     }
 
