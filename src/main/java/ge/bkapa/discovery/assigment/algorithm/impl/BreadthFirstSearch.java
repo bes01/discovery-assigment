@@ -13,7 +13,7 @@ public class BreadthFirstSearch implements ShortestPathAlgorithm {
 
     @Override
     public Path computeShortestPath(String from, String to, Map<String, List<Edge>> adjacencyMap) {
-        assert adjacencyMap.containsKey(from) && adjacencyMap.containsKey(to);
+        if (!adjacencyMap.containsKey(from) || !adjacencyMap.containsKey(to)) return new BFSPath();
 
         PriorityQueue<Path> paths = initializePriorityQueue(from, adjacencyMap);
 
